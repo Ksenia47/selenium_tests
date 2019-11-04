@@ -37,3 +37,15 @@ class GmailTasks:
             self.login = credentials['login']
         if 'password' in credentials:
             self.password = credentials['password']
+
+
+class Utils:
+
+    def format_json_str(self, json_str):
+        credentials_json = json.loads(json_str)
+        formated_json = json.dumps(credentials_json, indent=4)
+        return formated_json
+
+    def save_str_to_file(self, file_path, content):
+        with open(file_path, "w") as credentials_file:
+            print(content, file=credentials_file)
