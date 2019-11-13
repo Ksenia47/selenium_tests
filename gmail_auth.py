@@ -9,10 +9,11 @@ import json
 
 class GmailTasks:
 
-    def __init__(self, credentials_json: str):
+    def __init__(self, credentials_path: str):
         self.login = ''
         self.password = ''
-        self.load_credentials(credentials_json)
+        str_for_json = Utils().read_file(credentials_path)
+        self.load_credentials(str_for_json)
 
     def auth_user(self):
         auth_driver = webdriver.Chrome(executable_path=os.path.abspath(os.path.join('chromedriver.exe')))
@@ -42,10 +43,16 @@ class GmailTasks:
 class Utils:
 
     def format_json_str(self, json_str):
-        credentials_json = json.loads(json_str)
-        formated_json = json.dumps(credentials_json, indent=4)
+        data_json = json.loads(json_str)
+        formated_json = json.dumps(data_json, indent=4)
         return formated_json
 
     def save_str_to_file(self, file_path, content):
-        with open(file_path, "w") as credentials_file:
-            print(content, file=credentials_file)
+        file = open(file_path, "w")
+        file.write(content)
+        file.close()
+
+    def read_file(self, file_path):
+        with open(file_path, "r") as file:
+            content = file.read()
+        return content
