@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -12,7 +14,8 @@ class SearchServices:
     def __init__(self, user_login, user_password):
         self.login = user_login
         self.password = user_password
-        self.user_driver = webdriver.Chrome(executable_path=os.path.abspath(os.path.join('chromedriver.exe')))
+        ROOT_DIR = Path(__file__).parent.parent
+        self.user_driver = webdriver.Chrome(executable_path=os.path.join(ROOT_DIR, 'chromedriver.exe'))
 
     def auth_user(self):
         self.user_driver.get('https://pay.kvartplata.ru/pk/login.action')
